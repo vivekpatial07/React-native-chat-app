@@ -3,7 +3,9 @@ const genToken = require('../utils/generateToken')
 
 const signin = async(req, res) => {
   const { username, password } = req.body
-  const user = await User.findOne({ username })
+  try {
+    
+    const user = await User.findOne({ username })
   if(user) {
     //login
 
@@ -35,6 +37,11 @@ const signin = async(req, res) => {
       token
     })
   }
+  } catch (error) {
+    res.status(400).send(error.message)
+    console.log('error')
+  }
+  
 }
 
 module.exports = {
