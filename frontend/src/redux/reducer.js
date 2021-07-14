@@ -1,7 +1,8 @@
 import * as actionTypes from './actionTypes'
 
 const initialState = {
-  signInLoader: false
+  signInLoader: false,
+  redirectToHome: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -14,13 +15,16 @@ const reducer = (state = initialState, action) => {
     case actionTypes.SIGN_IN_SUCCESS:
       return {
         ...state,
-        signInLoader: false
+        signInLoader: false,
+        redirectToHome: true
       }
     case actionTypes.SIGN_IN_FAIL:
       return {
         ...state,
         signInLoader: false
       }
+    default:
+      return state
   }
 }
 export default reducer

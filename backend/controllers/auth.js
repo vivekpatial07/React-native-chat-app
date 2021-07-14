@@ -18,6 +18,8 @@ const signin = async(req, res) => {
         username: user.username,
         token
       })
+    } else {
+      throw new Error('Password Incorrect!')
     }
     
   } else {

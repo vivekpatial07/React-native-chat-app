@@ -1,15 +1,23 @@
-import React, { useState } from 'react'
-import { StyleSheet, View } from 'react-native'
-import { useDispatch } from 'react-redux'
+import React, { useEffect, useState } from 'react'
+import { StyleSheet, KeyboardAvoidingView } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux'
 import { TextInput, Button, Headline } from 'react-native-paper'
 import { signInInit } from '../redux/actionCreators'
 
-export default function Sign() {
+export default function Sign({ navigation }) {
   
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
   const dispatch = useDispatch()
+  const { signInLoader, redirectToHome } = useSelector(state => state)
+
+  useEffect(() => {
+    if(redirectToHome) {
+      navigation.navigate('HOME')
+    }
+  }, [redirectToHome])
+
 
   const loginHandler = () => {
     const userDetails = {
@@ -20,7 +28,7 @@ export default function Sign() {
   }
 
   return (
-    <View>
+    <KeyboardAvoidingView style={{flex: 1, justifyContent: 'center'}}>
       <Headline style={styles.head}>Sign In</Headline>
       <TextInput
         label='Username'
@@ -43,10 +51,11 @@ export default function Sign() {
         mode='contained'
         compact
         onPress={loginHandler}
+        loading={signInLoader}
       >
         Sign in
       </Button>
-    </View>
+    </KeyboardAvoidingView>
   )
 }
 
@@ -60,6 +69,7 @@ const styles = StyleSheet.create({
     marginVertical: 10
   },
   head: {
-    alignSelf: 'center'
+    alignSelf: 'center',
+    flexDirection: 'row'
   }
 })
