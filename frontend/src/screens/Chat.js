@@ -1,21 +1,16 @@
-import { DrawerActions } from '@react-navigation/native'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import Nav from '../components/Nav'
-import Users from '../components/Users'
 
-export default function Home({ navigation }) {
-  
+export default function Chat({ navigation }) {
+
   const toggleSideBar = () => {
     navigation.openDrawer()
   }
-
   return (
     <View style={styles.container}>
-      <Nav 
-        onPress={toggleSideBar}
-      />
-      <Users />
+      <Nav onPress={toggleSideBar}/>
+      <Text>Chat</Text>
     </View>
   )
 }

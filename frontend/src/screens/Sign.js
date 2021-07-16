@@ -14,7 +14,7 @@ export default function Sign({ navigation }) {
 
   useEffect(() => {
     if(redirectToHome) {
-      navigation.navigate('HOME')
+      navigation.replace('MAIN')
     }
   }, [redirectToHome])
 
