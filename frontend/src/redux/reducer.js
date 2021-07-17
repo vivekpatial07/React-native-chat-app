@@ -2,7 +2,9 @@ import * as actionTypes from './actionTypes'
 
 const initialState = {
   signInLoader: false,
-  redirectToHome: false
+  redirectToHome: false,
+  allUsers: [],
+  fetchUsersLoader: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -22,6 +24,22 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         signInLoader: false
+      }
+    case actionTypes.FETCH_USERS_INIT:
+      return {
+        ...state,
+        fetchUsersLoader: true
+      }
+    case actionTypes.FETCH_USERS_FAIL:
+      return {
+        ...state,
+        fetchUsersLoader: false
+      }
+    case actionTypes.FETCH_USERS_SUCCESS:
+      return {
+        ...state,
+        allUsers: action.payload,
+        fetchUsersLoader: false
       }
     default:
       return state

@@ -6,6 +6,7 @@ const server = require('http').createServer(app)
 const cors = require('cors')
 const mongoose = require('mongoose')
 const authRouter = require('./routes/auth')
+const userRouter = require('./routes/user')
 
 const io = require('socket.io')(server, {
   cors: {
@@ -52,6 +53,7 @@ mongoose.connect(process.env.DB_URI, {
 })
 
 app.use(authRouter)
+app.use(userRouter)
 
 server.listen(7000, async() => {
   // await main()

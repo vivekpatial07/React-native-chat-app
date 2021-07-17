@@ -20,3 +20,23 @@ export const signInSuccess = (data) => {
     payload: data
   }
 }
+
+export const fetchUsersInit = () => {
+  return{
+    type: actionTypes.FETCH_USERS_INIT
+  }
+}
+
+export const fetchUsersFail = (data) => {
+  return {
+    type: actionTypes.FETCH_USERS_FAIL,
+    payload: data
+  }
+}
+
+export const fetchUsersSuccess = (data) => {
+  return {
+    type: actionTypes.FETCH_USERS_SUCCESS,
+    payload: data
+  }
+}

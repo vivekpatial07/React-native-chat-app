@@ -1,7 +1,7 @@
 import instance from '../utils/axiosInstance'
 import { put } from 'redux-saga/effects'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { signInSuccess, signInFail } from './actionCreators'
+import { signInSuccess, signInFail, fetchUsersSuccess } from './actionCreators'
 
 export function* signInSaga(data) {
   try{
@@ -12,5 +12,14 @@ export function* signInSaga(data) {
   } catch(error) {
     console.log(error.message)
     yield put(signInFail(error.respones.data))
+  }
+}
+
+export function* fetchUsersSaga() {
+  try{
+    const response = yield instance.get('/fetchUsers')
+    yield put(fetchUsersSuccess(response.data))
+  } catch(error) {
+    console.log(error)
   }
 }
