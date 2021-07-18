@@ -21,10 +21,7 @@ function MainStackScreen() {
             headerShown: false
           }}
         />
-        <Drawer.Screen
-          name='CHAT'
-          component={Chat}
-        />
+       
       </Drawer.Navigator>
   )
 }
@@ -46,6 +43,13 @@ function App() {
           options={{
             headerShown: false
           }}  
+        />
+         <Stack.Screen
+          name='CHAT'
+          component={Chat}
+          options={{
+            // headerShown: false
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>

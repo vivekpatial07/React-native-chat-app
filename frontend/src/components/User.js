@@ -1,11 +1,15 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { List } from 'react-native-paper'
+import { useNavigation } from '@react-navigation/core'
 
-export default function User({username}) {
-  
+export default function User({ username, id }) {
+  const navigation = useNavigation()  
   const userPressedHandler = () => {
-    console.log('hii')
+    navigation.navigate('CHAT', {
+      name: username,
+      id
+    })
   }
   
   return (

@@ -18,6 +18,7 @@ export default function Users() {
     return (
       <User
         username={user.username}
+        id={user._id}
         key={user._id}
       />
     )
