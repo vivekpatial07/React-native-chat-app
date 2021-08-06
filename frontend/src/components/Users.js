@@ -8,11 +8,7 @@ import { List } from 'react-native-paper'
 
 export default function Users() {
 
-  const dispatch = useDispatch()
-  const {allUsers} = useSelector(state => state)
-  useEffect(() => {
-    dispatch(fetchUsersInit())    
-  }, [])
+  const { allUsers } = useSelector(state => state)
 
   const renderUsers = allUsers.map(user => {
     return (

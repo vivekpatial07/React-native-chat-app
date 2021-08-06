@@ -4,7 +4,10 @@ const initialState = {
   signInLoader: false,
   redirectToHome: false,
   allUsers: [],
-  fetchUsersLoader: false
+  fetchUsersLoader: false,
+  allChats: [],
+  fetchChatsLoader: false,
+  chatData: null
 }
 
 const reducer = (state = initialState, action) => {
@@ -41,6 +44,28 @@ const reducer = (state = initialState, action) => {
         allUsers: action.payload,
         fetchUsersLoader: false
       }
+    case actionTypes.GET_CHATS_INIT:
+      return {
+        ...state,
+        fetchChatsLoader: true
+      }
+    case actionTypes.GET_CHATS_FAIL:
+      return {
+        ...state,
+        fetchChatsLoader: false
+      }
+    case actionTypes.GET_CHATS_INIT:
+      return {
+        ...state,
+        fetchChatsLoader: false,
+        allChats: action.payload
+      }
+    case actionTypes.GET_PRIVATE_CHAT_SUCCESS:
+      return {
+        ...state,
+        chatData: action.payload
+      }
+
     default:
       return state
   }

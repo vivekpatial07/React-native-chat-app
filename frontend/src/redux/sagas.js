@@ -1,7 +1,7 @@
 import instance from '../utils/axiosInstance'
 import { put } from 'redux-saga/effects'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { signInSuccess, signInFail, fetchUsersSuccess } from './actionCreators'
+import { signInSuccess, signInFail, fetchUsersSuccess, getChatsSuccess, getPrivateChatSuccess } from './actionCreators'
 
 export function* signInSaga(data) {
   try{
@@ -11,7 +11,7 @@ export function* signInSaga(data) {
     yield put(signInSuccess(JSON.parse(user)))
   } catch(error) {
     console.log(error.message)
-    yield put(signInFail(error.respones.data))
+    yield put(signInFail(error.response.data))
   }
 }
 
@@ -21,5 +21,33 @@ export function* fetchUsersSaga() {
     yield put(fetchUsersSuccess(response.data))
   } catch(error) {
     console.log(error)
+  }
+}
+
+export function* getAllChatSaga(data) {
+  try {
+    const response = yield instance.get('/getChats')
+    yield put(getChatsSuccess(response.data))
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export function* getPrivateChatSaga ({ payload }) {
+  try {
+    const response = yield instance.post('/getPrivateChat', payload)
+    yield put(getPrivateChatSuccess((response.data[0])))
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
+export function* getMessagesSaga ({ payload }) {
+  try {
+    //send key value
+    const response = yield instance.post('/getMessages', {chatId: payload})
+    console.log(response.data)
+  } catch (error) {
+    console.log(error.message)
   }
 }
