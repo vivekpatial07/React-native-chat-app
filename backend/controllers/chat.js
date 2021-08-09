@@ -40,14 +40,14 @@ const getMessages = async(req, res) => {
 
 const saveMessageToDB = async(data) => {
   try {
-    const { chatData, msg, sender } = data
+    const { chatData, content, sender } = data
     const message = await Message.create({
       conversationId: chatData._id,
-      content: msg,
+      content,
       senderId: sender
     })
   } catch (error) {
-    
+    console.log(error.message)
   }
 }
 

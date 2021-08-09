@@ -7,7 +7,8 @@ const initialState = {
   fetchUsersLoader: false,
   allChats: [],
   fetchChatsLoader: false,
-  chatData: null
+  chatData: null,
+  userMessages: []
 }
 
 const reducer = (state = initialState, action) => {
@@ -65,7 +66,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         chatData: action.payload
       }
-
+    case actionTypes.GET_MESSAGES_SUCCESS:
+      return {
+        ...state,
+        userMessages: action.payload
+      }
     default:
       return state
   }

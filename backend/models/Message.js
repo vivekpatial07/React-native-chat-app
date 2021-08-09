@@ -5,6 +5,8 @@ const messageSchema = new Schema({
   conversationId: String,
   senderId: String,
   content: String,//for now
+} ,{
+  timestamps: true
 })
 
 

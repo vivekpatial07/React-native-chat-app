@@ -11,10 +11,11 @@ import { getMessagesInit, getPrivateChatInit } from '../redux/actionCreators'
 export default function Chat() {
 
   const [message, setMessage] = useState('')
-  const [currentUser, setCurrentUser] = useState() 
+  const [currentUser, setCurrentUser] = useState()
+  const [messages, setMessages] = useState([])
   const route = useRoute()
   const dispatch = useDispatch()
-  const { chatData } = useSelector(state => state)
+  const { chatData, userMessages } = useSelector(state => state)
   let socket = useRef(null)
 
   useEffect(()=>{
@@ -28,20 +29,25 @@ export default function Chat() {
 
   const submitHandler = async() => {
     const messageObj = {
-      msg: message,
+      content: message,
       reciever: route.params.id,
       sender: currentUser._id,
       chatData
     }
     socket.current.emit('sendMessage', messageObj)
+    // setMessage('')
   }
 
   useEffect(() => {
     socket.current.on('message', message => {
-      console.log(message,'hisdhof')
-      // setMessages(messages => [ ...messages, message ]);
+      setMessages(messages => [ ...messages, message ]);
     });
-}, []);
+  }, []);
+
+  useEffect(() => {
+    setMessages(userMessages)
+      return () => setMessages([])
+  }, [userMessages])
 
   useEffect(() => {
     getCurrentUser().then(usr => {
@@ -66,9 +72,16 @@ export default function Chat() {
     return user
   }
 
+  const allMsgs = messages.map(msg => {
+    return <Text key={msg._id}>{msg.content}</Text>
+  })
+  console.log(userMessages)
+  console.log('rerendering')
+
   return (
     <View style={styles.container}>
       <Text>Chat with {route.params.name}</Text>
+      {allMsgs.length > 0 ? allMsgs : <Text>no chats</Text>}
       <TextInput
         style={styles.chatBox}
         placeholder='type here ...'

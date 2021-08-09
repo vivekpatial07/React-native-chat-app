@@ -25,14 +25,14 @@ io.on('connection', socket => {
 
   // socket.to()
   socket.on('join-room', (data) => {
-    socket.join(data._id)
+    data && socket.join(data._id)
     console.log('room joined')
   })
 
   socket.on('sendMessage', (data) => {
     const { chatData } = data
     io.to(chatData._id).emit('message', data)
-    // saveMessageToDB(data)
+    saveMessageToDB(data)
   })
 })
 

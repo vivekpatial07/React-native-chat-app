@@ -1,7 +1,14 @@
 import instance from '../utils/axiosInstance'
 import { put } from 'redux-saga/effects'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { signInSuccess, signInFail, fetchUsersSuccess, getChatsSuccess, getPrivateChatSuccess } from './actionCreators'
+import {
+  signInSuccess,
+  signInFail,
+  fetchUsersSuccess,
+  getChatsSuccess,
+  getPrivateChatSuccess,
+  getMessagesSuccess
+} from './actionCreators'
 
 export function* signInSaga(data) {
   try{
@@ -46,7 +53,7 @@ export function* getMessagesSaga ({ payload }) {
   try {
     //send key value
     const response = yield instance.post('/getMessages', {chatId: payload})
-    console.log(response.data)
+    yield put(getMessagesSuccess(response.data))
   } catch (error) {
     console.log(error.message)
   }
