@@ -1,5 +1,7 @@
 const Conversation = require('../models/Conversation')
 const Message = require('../models/Message')
+const User = require('../models/User')
+const mongoose = require('mongoose')
 
 const getChats = async(req, res) => {
   try{
@@ -51,9 +53,48 @@ const saveMessageToDB = async(data) => {
   }
 }
 
+const startChat = async(req, res) => {
+  const { chatId } = req.body
+  try {
+    const chat = await Conversation.findById(chatId)
+    chat.chatStarted = true
+    await chat.save()
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
+const getOngoingChat = async(req, res) => {
+  const { userId } = req.body
+  try {
+    const ongoingChat = await Conversation.find({participants: {"$in": [userId]}})
+    const filteredChats = ongoingChat.filter(chat => chat.chatStarted === true)
+    const friends = []
+    filteredChats.forEach(chat => {
+      chat.participants.forEach(usr => {
+        if(usr !== userId){
+          friends.push(mongoose.Types.ObjectId(usr))
+        }
+      })
+    })
+
+  const users = await User.find({
+    '_id': {
+      $in: friends
+    }
+  })
+    res.json(users)
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
+
 module.exports = {
   getChats,
   getPrivateChat,
   getMessages,
-  saveMessageToDB
+  saveMessageToDB,
+  startChat,
+  getOngoingChat
 }

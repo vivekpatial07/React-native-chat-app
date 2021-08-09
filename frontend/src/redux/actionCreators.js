@@ -21,9 +21,10 @@ export const signInSuccess = (data) => {
   }
 }
 
-export const fetchUsersInit = () => {
+export const fetchUsersInit = (data) => {
   return{
-    type: actionTypes.FETCH_USERS_INIT
+    type: actionTypes.FETCH_USERS_INIT,
+    payload: data
   }
 }
 
@@ -77,6 +78,21 @@ export const getPrivateChatSuccess = (data) => ({
   payload: data
 })
 
+export const startChatInit = (data) => ({
+  type: actionTypes.START_CHAT_INIT,
+  payload: data
+})
+
+export const startChatFail = (data) => ({
+  type: actionTypes.START_CHAT_FAIL,
+  payload: data
+})
+
+export const startChatSuccess = (data) => ({
+  type: actionTypes.START_CHAT_SUCCESS,
+  payload: data
+})
+
 export const getMessagesInit = (data) => ({
   type: actionTypes.GET_MESSAGES_INIT,
   payload: data
@@ -89,5 +105,20 @@ export const getMessagesSuccess = (data) => ({
 
 export const getMessagesFail = (data) => ({
   type: actionTypes.GET_MESSAGES_FAIL,
+  payload: data
+})
+
+export const getOngoingChatsInit = (data) => ({
+  type: actionTypes.GET_ONGOING_CHATS_INIT,
+  payload: data
+})
+
+export const getOngoingChatsFail = (data) => ({
+  type: actionTypes.GET_ONGOING_CHATS_FAIL,
+  payload: data
+})
+
+export const getOngoingChatsSuccess = (data) => ({
+  type: actionTypes.GET_ONGOING_CHATS_SUCCESS,
   payload: data
 })

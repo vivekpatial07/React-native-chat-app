@@ -11,20 +11,6 @@ const Stack = createStackNavigator()
 const Drawer = createDrawerNavigator()
 //for paper customization see getting started paper doc page
 
-function MainStackScreen() {
-  return (
-      <Drawer.Navigator initialRouteName='HOME'>
-        <Stack.Screen
-          name='HOME'
-          component={Home} 
-          options={{
-            headerShown: false
-          }}
-        />
-       
-      </Drawer.Navigator>
-  )
-}
 
 function App() {
   return (
@@ -39,10 +25,10 @@ function App() {
         />
         <Stack.Screen
           name='MAIN'
-          component={MainStackScreen} 
+          component={Home} 
           options={{
             headerShown: false
-          }}  
+          }}
         />
          <Stack.Screen
           name='CHAT'

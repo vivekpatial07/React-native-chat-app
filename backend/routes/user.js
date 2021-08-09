@@ -2,6 +2,6 @@ const { fetchUsers } = require('../controllers/user')
 
 const router = require('express').Router()
 
-router.get('/fetchUsers', fetchUsers)
+router.post('/fetchUsers', fetchUsers)
 
 module.exports = router

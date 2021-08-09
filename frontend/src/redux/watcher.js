@@ -5,7 +5,9 @@ import {
   fetchUsersSaga,
   getAllChatSaga,
   getPrivateChatSaga,
-  getMessagesSaga
+  getMessagesSaga,
+  startChatSaga,
+  getOngoingChatSaga
 } from './sagas'
 
 function* watcher() {
@@ -14,6 +16,8 @@ function* watcher() {
   yield takeLatest(actionTypes.GET_CHATS_INIT, getAllChatSaga)
   yield takeLatest(actionTypes.GET_PRIVATE_CHAT_INITIATE, getPrivateChatSaga)
   yield takeLatest(actionTypes.GET_MESSAGES_INIT, getMessagesSaga)
+  yield takeLatest(actionTypes.START_CHAT_INIT, startChatSaga)
+  yield takeLatest(actionTypes.GET_ONGOING_CHATS_INIT, getOngoingChatSaga)
 }
 
 

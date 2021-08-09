@@ -7,7 +7,9 @@ import {
   fetchUsersSuccess,
   getChatsSuccess,
   getPrivateChatSuccess,
-  getMessagesSuccess
+  getMessagesSuccess,
+  startChatSuccess,
+  getOngoingChatsSuccess,
 } from './actionCreators'
 
 export function* signInSaga(data) {
@@ -22,9 +24,10 @@ export function* signInSaga(data) {
   }
 }
 
-export function* fetchUsersSaga() {
+export function* fetchUsersSaga({ payload }) {
+  console.log(payload)
   try{
-    const response = yield instance.get('/fetchUsers')
+    const response = yield instance.post('/fetchUsers', {userId: payload})
     yield put(fetchUsersSuccess(response.data))
   } catch(error) {
     console.log(error)
@@ -52,9 +55,29 @@ export function* getPrivateChatSaga ({ payload }) {
 export function* getMessagesSaga ({ payload }) {
   try {
     //send key value
-    const response = yield instance.post('/getMessages', {chatId: payload})
+    const response = yield instance.post('/getMessages', { chatId: payload })
     yield put(getMessagesSuccess(response.data))
   } catch (error) {
     console.log(error.message)
+  }
+}
+
+export function* startChatSaga ({ payload }) {
+  try {
+    const response = yield instance.post('/startChat', { chatId: payload })
+    yield put(startChatSuccess(response.data))
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export function* getOngoingChatSaga ({ payload }) {
+  console.log('hi')
+  try {
+    const response = yield instance.post('/getOngoingChat', { userId: payload })
+    console.log(response.data)
+    yield put(getOngoingChatsSuccess(response.data))
+  } catch (error) {
+    console.log(error)
   }
 }

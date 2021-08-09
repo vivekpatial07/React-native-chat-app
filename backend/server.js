@@ -31,7 +31,7 @@ io.on('connection', socket => {
 
   socket.on('sendMessage', (data) => {
     const { chatData } = data
-    io.to(chatData._id).emit('message', data)
+    chatData && io.to(chatData._id).emit('message', data)
     saveMessageToDB(data)
   })
 })

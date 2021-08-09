@@ -1,12 +1,13 @@
 const User = require('../models/User')
 
 const fetchUsers = async(req, res) => {
-  console.log('fetching')
+  const { userId } = req.body
   try{
     const allUsers = await User.find()
-    res.json(allUsers)
+    const friends = allUsers.filter(usr => usr._id != userId)
+    res.json(friends)
   } catch(error) {
-    console.log(erro)
+    console.log(error)
   }
 }
 

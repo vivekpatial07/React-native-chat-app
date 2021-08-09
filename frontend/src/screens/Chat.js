@@ -6,7 +6,7 @@ import { useRoute } from '@react-navigation/native'
 import { io } from 'socket.io-client'
 import { TextInput } from 'react-native-paper'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { getMessagesInit, getPrivateChatInit } from '../redux/actionCreators'
+import { getMessagesInit, getPrivateChatInit, startChatInit } from '../redux/actionCreators'
 
 export default function Chat() {
 
@@ -34,8 +34,10 @@ export default function Chat() {
       sender: currentUser._id,
       chatData
     }
-    socket.current.emit('sendMessage', messageObj)
-    // setMessage('')
+    chatData && socket.current.emit('sendMessage', messageObj)
+    if(!chatData.chatStarted) {
+      dispatch(startChatInit(chatData._id))
+    }
   }
 
   useEffect(() => {
@@ -75,8 +77,6 @@ export default function Chat() {
   const allMsgs = messages.map(msg => {
     return <Text key={msg._id}>{msg.content}</Text>
   })
-  console.log(userMessages)
-  console.log('rerendering')
 
   return (
     <View style={styles.container}>

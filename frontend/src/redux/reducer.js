@@ -8,7 +8,8 @@ const initialState = {
   allChats: [],
   fetchChatsLoader: false,
   chatData: null,
-  userMessages: []
+  userMessages: [],
+  ongoingChats: []
 }
 
 const reducer = (state = initialState, action) => {
@@ -70,6 +71,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         userMessages: action.payload
+      }
+    case actionTypes.GET_ONGOING_CHATS_SUCCESS:
+      return {
+        ...state,
+        ongoingChats: action.payload
       }
     default:
       return state
